@@ -19,7 +19,7 @@ stages:
       displayName: 'Build Docker image'
       inputs:
         command: 'build'
-        containerRegistry: 'openshift-registry'
+        containerRegistry: 'OpenShift-Registry'
         buildContext: 'App'
         repository: '$(project-name-dev)/$(image-name)'
         Dockerfile: 'Dockerfile'
@@ -28,7 +28,7 @@ stages:
       displayName: 'Push Docker image to OpenShift internal registry'
       inputs:
         command: 'push'
-        containerRegistry: 'openshift-registry'
+        containerRegistry: 'OpenShift-Registry'
         repository: '$(project-name-dev)/$(image-name)'
         tags: $(Build.BuildId)
     - task: PublishPipelineArtifact@1
@@ -50,7 +50,7 @@ stages:
       displayName: Deploy to Kubernetes cluster
       inputs:
         action: deploy
-        kubernetesServiceConnection: 'openshift'
+        kubernetesServiceConnection: 'OpenShift-Service-Account'
         namespace: '$(project-name-dev)'
         manifests: |
           $(Build.SourcesDirectory)/manifests/*.yaml
